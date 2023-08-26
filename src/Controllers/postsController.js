@@ -50,6 +50,7 @@ export class postsController{
             if (post.type === "event") {
                 showButton = true;
             }
+            
             res.render("post",{post,showButton});
         } catch (error) {
             console.log(error);
