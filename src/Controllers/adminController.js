@@ -62,7 +62,6 @@ export class adminController{
             res.render("dashboard",{
                 registrations
             })
-    .exec();
         } catch (error) {
             // return  res.render("login",{errorMessage:"Invalid Credentials"});
             console.log(error);
