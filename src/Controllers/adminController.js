@@ -29,7 +29,6 @@ export class adminController{
     static loginAdmin = async (req, res) => {
         try {
             const { email, password } = req.body;            
-            console.log(email);
             // Find the user based on the provided email
             const admin = await findAdminByEmail(email);
     
@@ -42,7 +41,6 @@ export class adminController{
             if (!passwordMatch){
                  return  res.render("login",{errorMessage:"Invalid Credentials"});
                 }
-            console.log("hi");
             // Generate a JWT token
             const token = jwt.sign({ adminId: admin._id },"8wbwmbf874983behbh" , { expiresIn: '1h' });
             req.session.token = token;

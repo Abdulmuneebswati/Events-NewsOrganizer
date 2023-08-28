@@ -36,7 +36,6 @@ export class postsController{
                 res.render("eventsandnews",{posts});
             }else if(type){
                 const posts = await Posts.find({type})
-                console.log(posts,"i am " + type);
                 res.render("eventsandnews",{posts});
             }
         } catch (error) {
