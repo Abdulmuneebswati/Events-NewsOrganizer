@@ -17,11 +17,13 @@ export class postsController{
             stream.end(imageFile.buffer); // Write the buffer to the stream
             const newPost = await Posts.create({ ...req.body, imageUrl: photoURL });
             if (newPost) {
-                res.send("post created successfully");
+                res.render("addPostForm",{
+                    errorMessage:"post created successfully"});
             }
         } catch (error) {
-            console.error(error);
-            res.status(500).send("Error creating post");
+            res.render("addPostForm",{
+                errorMessage:error.message
+            })
         }  
     }
 
