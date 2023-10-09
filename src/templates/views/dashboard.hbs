@@ -12,23 +12,22 @@
     {{> headers}}
   <div class="px-5 mt-5">
         <div class="d-flex justify-content-end"><a href="/api/posts/createPost">Add Event/News</a></div>
-        <h1>List Of Registrations</h1>
+        <h1>List Of Events</h1>
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Event Name</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">View registeredMembers</th>
                 </tr>
             </thead>
             <tbody>
-                {{#each registrations}}
+                {{#each events}}
                 <tr>
                     <th scope="row">{{this.serialNumber}}</th>
-                    <td>{{this.name}}</td>
-                    <td>{{this.email}}</td>
-                    <td><a href="/api/posts/post/{{this.eventId}}">View Event</a></td>
+                    <td>{{this.title}}</td>
+                    <td class="underline"><a href="events/{{this._id}}">View</a></td>
+
                 </tr>
                 {{/each}}
             </tbody>

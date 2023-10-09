@@ -3,6 +3,8 @@ import { Admins, findAdminByEmail } from "../Models/Admin.js";
 import { comparePassword, encodePassword } from "../utils/bcrypt.js";
 import { handleException } from "../utils/exception.js";
 import { Registration } from "../Models/Registration.js";
+import { Posts } from "../Models/Posts.js";
+import { Teams } from "../Models/Teams.js";
 export class adminController{
     static createUser = async (req, res) => {
         try {
@@ -52,18 +54,85 @@ export class adminController{
     }
     static getDashboard = async(req,res)=>{
         try {
-            const registrations = await Registration.find()
-    .sort({ createdAt: -1 });
-    registrations.forEach((registration, index) => {
-        registration.serialNumber = index + 1;
-    });
+            const events = await Posts.find({type:"event"}).sort({ createdAt: -1 });
+            events.forEach((event, index) => {
+                event.serialNumber = index + 1;
+            });
             res.render("dashboard",{
-                registrations
+               events
             })
         } catch (error) {
             // return  res.render("login",{errorMessage:"Invalid Credentials"});
             console.log(error);
         }
+    }
+    static getMembers = async (req, res) => {
+        try {
+            const eventId = req.params.id;
+            const registrations = await Registration.find({ eventId });
+            const teams = await Teams.find({ eventId });
+    
+            teams.forEach((team, index) => {
+                team.serialNumber = index + 1;
+            });
+    
+         
+            registrations.forEach((registration, index) => {
+                registration.serialNumber = index + 1;
+            });
+    
+           res.render("members",{
+            registrations,
+            teams,
+            eventId
+           })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
+
+
+
+
+    static createTeam = async (req,res)=>{
+        try {
+           const team =await Teams.create(req.body);
+           if (team) {
+            res.redirect(`/api/admin/events/${req.body.eventId}`);
+           }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    static addMember = async (req,res)=>{
+        try {
+            const memberId = req.params.id;
+            const team_name =  req.params.teamName   
+           const team = await Teams.findOne({team_name});
+            if (team) {
+                await Registration.updateOne({ _id: memberId }, { team_id: team._id,team_name:team.team_name });
+                return res.status(200).json({ message: 'Member added to the team successfully' });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    static showCreateTeamPage  = async(req,res)=>{
+        const {eventId} = req.params;
+        res.render("createTeam",{
+            eventId
+        })
+    }
+
+    static showPlayers = async(req,res)=>{
+        const team_id = req.params.id;
+        const players = await Registration.find({team_id});
+        res.render("players",{
+            players
+        })
     }
 }
 

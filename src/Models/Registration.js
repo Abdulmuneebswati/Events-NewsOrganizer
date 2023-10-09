@@ -8,7 +8,6 @@ const registrationSchema = new mongoose.Schema({
     email: {
       type: String,
       required: true,
-        
     },
     contactNumber:{
         type:Number,
@@ -17,6 +16,12 @@ const registrationSchema = new mongoose.Schema({
     eventId: {
         type: String,
         required: true,
+    },
+    team_id:{
+      type: String,
+    },
+    team_name:{
+      type: String,
     }
 });
 
