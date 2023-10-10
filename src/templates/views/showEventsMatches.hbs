@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Include your HTML head content here -->
+
+    <!-- Add Tailwind CSS link -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<section class="flex justify-center items-start m-4 gap-5 flex-wrap bg-gray-100">
+    <div class="w-full w-1/4 p-4">
+        {{#each matches}}
+        <div class="bg-white rounded-lg shadow-md">
+            <div class="text-2xl font-semibold mb-4">Match Details</div>
+
+            <!-- Card Content -->
+            <div class="mb-4">
+                <div class="font-bold">Match Teams</div>
+                <div class="text-gray-600">{{this.team1}} vs {{this.team2}}</div>
+            </div>
+
+            <div class="mb-4">
+                <div class="font-bold">Time</div>
+                <div class="text-gray-600">{{this.time}}</div>
+            </div>
+
+            <div class="mb-4">
+                <div class="font-bold">Date</div>
+                <div class="text-gray-600">{{this.date}}</div>
+            </div>
+
+            <div class="mb-4">
+                <div class="font-bold">Status</div>
+                <div class="text-green-500">In Progress</div>
+            </div>
+
+            <div class="mb-4">
+                <div class="font-bold">Location</div>
+                <div class="text-gray-600">Stadium X</div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    
+    <!-- Add more card divs as needed -->
+
+</section>
+
+</body>
+
+</html>

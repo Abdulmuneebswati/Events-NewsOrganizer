@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url';
 import session from "express-session";
 import flash from "express-flash";
 import { registrationRoute } from "./src/Routes/registrationRoute.js";
+import { matchRoutes } from "./src/Routes/matchRoute.js";
 
 const app = express();
 
@@ -33,6 +34,8 @@ hbs.registerPartials(partialPath);
 app.use("/api/admin",adminRoutes);
 app.use("/api/posts",postsRoutes);
 app.use("/api/register",registrationRoute);
+app.use("/api/matches",matchRoutes);
+
 
 
 
